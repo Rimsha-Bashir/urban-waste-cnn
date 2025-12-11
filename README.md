@@ -42,10 +42,10 @@ The dataset consists of more than 11,700 images from three different sources and
 | **Data Processing** | pandas, numpy, pycocotools, OpenCV |
 | **Visualization** | matplotlib, seaborn, plotly |
 | **Modeling** | PyTorch / TensorFlow / Keras, torchvision, timm (transfer learning), ONNX |
-| **Web Framework** | Flask or FastAPI |
+| **Web Framework** | Optional: FastAPI |
 | **Model Serialization** | TorchScript, ONNX |
 | **Containerization** | Docker |
-| **Cloud Deployment** | AWS Lambda, AWS API Gateway |
+| **Cloud Deployment** | AWS Lambda, AWS ECR, AWS API Gateway |
 | **Version Control** | Git / GitHub |
 
 
