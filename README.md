@@ -2,8 +2,7 @@
 
 A deep learning approach to automatically classify aerial images and identify areas with illegal waste accumulation in urban environments.
 
----
-
+----
 ## 1. Problem Statement
 
 ### Background
@@ -19,9 +18,9 @@ Illegal waste dumping and accumulation in urban areas is a significant environme
 - Visualizations and heatmaps highlighting predicted waste areas.
 .....
   
----
+----
+## 2. Dataset Description
 
-## 2. Dataset
 **Source:** [AerialWaste](https://aerialwaste.org/)  
 The dataset consists of more than 11,700 images from three different sources and contains annotations at different granularities:
 
@@ -30,3 +29,37 @@ The dataset consists of more than 11,700 images from three different sources and
 - Weakly-supervised localization: a subset of images is annotated with ground truth segmentation masks surrounding relevant waste objects.
 
 **Citation:** Torres, R. N., & Fraternali, P. (2023). AerialWaste dataset for landfill discovery in aerial and satellite images. *Scientific Data, 10*(1), 63. Nature Publishing Group UK London.
+
+**Features:**
+....
+
+----
+## 3. Technology Stack
+
+| Layer | Tools / Libraries |
+|--------|-------------------|
+| **Language** | Python 3.10+ |
+| **Data Processing** | pandas, numpy, pycocotools, OpenCV |
+| **Visualization** | matplotlib, seaborn, plotly |
+| **Modeling** | PyTorch / TensorFlow / Keras, torchvision, timm (transfer learning), ONNX |
+| **Web Framework** | Flask or FastAPI |
+| **Model Serialization** | TorchScript, ONNX |
+| **Containerization** | Docker |
+| **Cloud Deployment** | AWS Lambda, AWS API Gateway |
+| **Version Control** | Git / GitHub |
+
+
+----
+## 4. Folder Structure
+
+
+----
+## 5. Application Workflow
+
+
+----
+## 6. Instructions to Reproduce
+
+
+----
+## 7. Future Enhancements
