@@ -1,0 +1,30 @@
+# Data processing
+numpy
+pandas
+scikit-learn
+
+# Image handling
+Pillow
+
+# Visualization
+matplotlib
+seaborn
+tqdm
+
+# Deep learning
+torch
+torchvision
+torchaudio
+
+# ONNX export and runtime
+onnx
+onnxruntime
+
+# Deployment
+flask
+boto3
+docker
+
+# Jupyter / notebooks
+jupyter
+ipykernel
