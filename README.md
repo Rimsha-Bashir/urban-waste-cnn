@@ -88,6 +88,13 @@ The AerialWaste dataset is a large-scale dataset designed for landfill discovery
 ----
 ## 5. Application Workflow
 
+### 1. Set Up AWS 
+
+
+```bash 
+aws s3 sync "path/to/local/aerial-dataset" s3://urban-waste-cnn//AerialWaste --exact-timestamps --quiet 
+```
+Note: Replace the "path/to/local/aerial-dataset" with the actual local path. 
 
 ----
 ## 6. Instructions to Reproduce

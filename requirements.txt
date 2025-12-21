@@ -11,6 +11,9 @@ matplotlib
 seaborn
 tqdm
 
+# To access .env
+python-dotenv
+
 # Deep learning
 torch
 torchvision
