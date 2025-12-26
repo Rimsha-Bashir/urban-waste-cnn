@@ -90,11 +90,49 @@ The AerialWaste dataset is a large-scale dataset designed for landfill discovery
 
 ### 1. Set Up AWS 
 
+1. Create a User account 
+2. Attach policies directly to give permissions 
+3. Select the below:
+
+![alt text](./images/aws_permissions_1.png)
+
+
+### 2. Upload images to AWS S3
 
 ```bash 
-aws s3 sync "path/to/local/aerial-dataset" s3://urban-waste-cnn//AerialWaste --exact-timestamps --quiet 
+aws s3 sync "path/to/local/aerial-dataset" s3://urban-waste-cnn/AerialWaste --exact-timestamps --quiet 
 ```
 Note: Replace the "path/to/local/aerial-dataset" with the actual local path. 
+
+
+### 3. Train the model with AWS Sagemaker (Optional) 
+
+
+Go to Amazon Sagemaker -> Create a Domain (from the left side bar/panel)
+
+In the Quick Settings select:
+
+- Domain name: `urban-waste-domain` 
+- Default VPC with all subnets 
+
+![alt text](./images/vpc_setting_sagemaker_domain.png)
+
+- For Domain Execution Role, Domain Service role, and all of the options pertaining to Service roles, keep `Create and use a new service role`
+
+- Ignore Generative AI / Bedrock options
+
+Then, go to Unified Studio -> build -> IDE and application -> Jupyter Lab -> Create a new project
+
+![alt text](./images/unified_studio_build.png)
+
+Name the project: `urban-waste-project`
+
+![alt text](./images/jupyterlab_project.png)
+
+Click on create project without changing anything else. In a few minutes, your project will be ready. 
+
+
+
 
 ----
 ## 6. Instructions to Reproduce
