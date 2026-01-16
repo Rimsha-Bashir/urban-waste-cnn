@@ -142,7 +142,15 @@ To check out my app, click [https://urban-waste-cnn.streamlit.app/](https://urba
 
 ![alt text](./images/streamlit-op.png)
 
-> You can create your own streamlit app by connecting the application on streamlit to your repository. Remember to add the `API_URL` as a secret variable. 
+> **Note:** This Streamlit application and its backing AWS infrastructure
+> (Lambda function and API Gateway) are **temporarily active** for demonstration
+> and evaluation purposes. Long-term availability is not guaranteed, but the
+> complete setup and deployment process is fully documented to allow
+> reproduction.
+
+> To create your own Streamlit deployment, connect a Streamlit Cloud app to the
+> project repository and add the AWS API endpoint as a secret variable
+> (`API_URL`).
 
 ----
 ## 7. Future Enhancements
