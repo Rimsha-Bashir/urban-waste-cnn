@@ -138,14 +138,11 @@ Overview
 - Requests are forwarded to the AWS API Gateway /predict endpoint
 - Predictions are displayed in real time
 
-Purpose
+To check out my app, click [https://urban-waste-cnn.streamlit.app/](https://urban-waste-cnn.streamlit.app/)
 
-- A final system validation layer
-- A user experience (UX) testbed
-- A demonstration of real-world model consumption
+![alt text](./images/streamlit-op.png)
 
-The Streamlit application communicates only with the public API and does not require direct access to AWS credentials.
-
+> You can create your own streamlit app by connecting the application on streamlit to your repository. Remember to add the `API_URL` as a secret variable. 
 
 ----
 ## 7. Future Enhancements
