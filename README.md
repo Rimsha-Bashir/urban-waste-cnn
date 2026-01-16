@@ -36,7 +36,7 @@ Illegal waste dumping and accumulation in urban areas is a significant environme
 The AerialWaste dataset is a large-scale dataset designed for landfill discovery and waste detection using aerial and satellite imagery.
 
 ### Dataset Characteristics
-- Approximately **11,700 aerial images** collected from multiple geographic regions.
+- Images collected from multiple geographic regions.
 - Images distributed across multiple folders (`images0` – `images5`).
 - COCO-style JSON annotations provided for training and testing.
 
@@ -84,59 +84,74 @@ The AerialWaste dataset is a large-scale dataset designed for landfill discovery
 ----
 ## 4. Folder Structure
 
+![alt text](./images/folder-structure.png)
 
 ----
 ## 5. Application Workflow
 
-### 1. Set Up AWS 
-
-1. Create a User account 
-2. Attach policies directly to give permissions 
-3. Select the below:
-
-![alt text](./images/aws_permissions_1.png)
 
 
-### 2. Upload images to AWS S3
+---
 
-```bash 
-aws s3 sync "path/to/local/aerial-dataset" s3://urban-waste-cnn/AerialWaste --exact-timestamps --quiet 
-```
-Note: Replace the "path/to/local/aerial-dataset" with the actual local path. 
-
-
-### 3. Train the model with AWS Sagemaker (Optional) 
-
-
-Go to Amazon Sagemaker -> Create a Domain (from the left side bar/panel)
-
-In the Quick Settings select:
-
-- Domain name: `urban-waste-domain` 
-- Default VPC with all subnets 
-
-![alt text](./images/vpc_setting_sagemaker_domain.png)
-
-- For Domain Execution Role, Domain Service role, and all of the options pertaining to Service roles, keep `Create and use a new service role`
-
-- Ignore Generative AI / Bedrock options
-
-Then, go to Unified Studio -> build -> IDE and application -> Jupyter Lab -> Create a new project
-
-![alt text](./images/unified_studio_build.png)
-
-Name the project: `urban-waste-project`
-
-![alt text](./images/jupyterlab_project.png)
-
-Click on create project without changing anything else. In a few minutes, your project will be ready. 
-
-
-
-
-----
 ## 6. Instructions to Reproduce
+
+This section provides a **complete, end-to-end guide** to reproducing the deployed machine learning inference system, from local container-based testing to cloud deployment on **AWS Lambda** and public access via **API Gateway**.  
+The final inference API is additionally integrated into a **Streamlit Cloud application** for user-facing testing and validation.
+
+### 6.1 System Requirements
+
+The following tools and services are required:
+
+- **Docker ≥ 20.x**
+- **AWS CLI ≥ 2.x**
+- **Python ≥ 3.9**
+- An active **AWS account** with permissions to create IAM users, roles, Lambda functions, ECR repositories, and API Gateway resources
+- A **Streamlit Cloud account** (optinally, if you wish to deploy this project yourself.)
+
+
+### 6.2 AWS Identity and Access Management (IAM)
+
+For instructions on AWS configurations and IAM, check out [aws-configurations.md](./reproducability-instructions/aws-configurations.md)
+
+---
+
+### 6.3 **Local Inference Testing**
+
+For instructions on local containerized inference testing, check out [local-testing.md](./reproducability-instructions/local-testing.md)
+
+---
+
+### **6.4 Cloud Deployment (AWS)**
+
+For instructions on deploying the ML project on AWS, check out [cloud-deployment.md](./reproducability-instructions/cloud-deployment.md)
+
+---
+
+### **6.5 Streamlit Cloud Deployment (User-Facing Validation)**
+
+To enable non-technical users to interact with the model, the AWS API endpoint is integrated into a Streamlit Cloud application.
+
+Overview
+
+- The Streamlit app provides an image upload interface
+- Uploaded images are Base64-encoded client-side
+- Requests are forwarded to the AWS API Gateway /predict endpoint
+- Predictions are displayed in real time
+
+Purpose
+
+- A final system validation layer
+- A user experience (UX) testbed
+- A demonstration of real-world model consumption
+
+The Streamlit application communicates only with the public API and does not require direct access to AWS credentials.
 
 
 ----
 ## 7. Future Enhancements
+
+- Expanding the training dataset with additional labeled images to improve model generalization
+- GPU-backed inference (Amazon ECS or SageMaker)
+- Batch inference pipelines for large-scale evaluation
+- Model versioning
+- CI/CD automation for retraining and redeployment

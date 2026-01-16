@@ -14,14 +14,16 @@ tqdm
 # To access .env
 python-dotenv
 
+# streamlit
+streamlit
+
 # Deep learning
 torch
 torchvision
-torchaudio
 
 # ONNX export and runtime
-onnx
-onnxruntime
+# onnx
+# onnxruntime
 
 # Deployment
 flask
