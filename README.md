@@ -4,7 +4,6 @@ A deep learning approach to automatically classify aerial images and identify ar
 
 ![alt text](./images/waste-detection.png)
 
-
 ----
 ## 1. Problem Statement
 
