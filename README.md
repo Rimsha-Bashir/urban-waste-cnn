@@ -285,7 +285,7 @@ https://urban-waste-cnn.streamlit.app/
 
 > To create your own Streamlit deployment, connect a Streamlit Cloud app to the
 > project repository and add the AWS API endpoint as a secret variable
-> (`API_URL`).
+> (`API_URL`). For running the streamlit app locally, create a `.env` file and add the variable there.  
 
 ----
 ## 7. Future Enhancements
