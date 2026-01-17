@@ -2,6 +2,8 @@
 
 A deep learning approach to automatically classify aerial images and identify areas with illegal waste accumulation in urban environments.
 
+![alt text](./images/waste-detection.png)
+
 ----
 ## 1. Problem Statement
 
@@ -62,7 +64,6 @@ The AerialWaste dataset is a large-scale dataset designed for landfill discovery
   publisher={Nature Publishing Group UK London}
 }
 ```
-....
 
 ----
 ## 3. Technology Stack
@@ -70,12 +71,10 @@ The AerialWaste dataset is a large-scale dataset designed for landfill discovery
 | Layer                   | Tools / Libraries                                    |
 | ----------------------- | ---------------------------------------------------- |
 | **Language**            | Python 3.10+                                         |
-| **Data Processing**     | pandas, numpy, pycocotools, OpenCV                   |
+| **Data Processing**     | pandas, numpy                                        |
 | **Visualization**       | matplotlib, seaborn                                  |
-| **Modeling**            | PyTorch, torchvision, timm (transfer learning), ONNX |
-| **Training Platform**   | AWS SageMaker                                        |
-| **Web Framework**       | FastAPI                                              |
-| **Model Serialization** | TorchScript, ONNX                                    |
+| **Modeling**            | PyTorch, torchvision, timm (transfer learning)       |
+| **Web Framework**       | Streamlit, Streamlit Cloud                           |
 | **Containerization**    | Docker                                               |
 | **Cloud Deployment**    | AWS Lambda, AWS ECR, AWS API Gateway                 |
 | **Version Control**     | Git, GitHub                                          |
@@ -89,16 +88,119 @@ The AerialWaste dataset is a large-scale dataset designed for landfill discovery
 ----
 ## 5. Application Workflow
 
+The overall workflow of the Urban Waste Detection system spans data exploration,
+model inference, cloud deployment, and user-facing interaction.  
+The pipeline is designed to ensure reproducibility, scalability, and ease of use
+for both technical and non-technical users.
 
+### 5.1. Data Collection and Preprocessing
 
----
+The dataset consists of aerial images annotated for waste presence, provided with
+JSON files defining training and testing splits.
 
+Key preprocessing steps include:
+- Resolving image paths across multiple image directories
+- Filtering missing or invalid image files
+- Mapping annotations to a binary classification task
+  (waste vs no-waste)
+- Shuffling data with a fixed random seed
+- Limiting the dataset size to ensure feasible CPU-based training
+
+Images are resized and normalized to match pretrained CNN input requirements.\
+
+### 5.2. Exploratory Data Analysis (EDA)
+
+Exploratory analysis is performed to understand dataset characteristics and
+potential sources of bias.
+
+EDA includes:
+- Class distribution analysis (waste vs no-waste)
+
+- Waste presence across different site types
+<img src="./images/waste-presence-by-site.png" width="300px">
+
+- Distribution of severity and evidence labels
+<img src="./images/severity-distr.png" width="250px" style="margin-right: 10px;">
+<img src="./images/evidence-distr.png" width="250px">
+  
+- Visual inspection of sample images
+
+### 5.3. Model Training and Tuning
+
+Multiple pretrained convolutional neural networks are evaluated using transfer
+learning. For all models, the backbone is frozen and only the classifier layers
+are fine-tuned.
+
+#### Model 1: ResNet-18
+A pretrained ResNet-18 backbone was fine-tuned for binary classification (waste vs no-waste).  
+The backbone layers were frozen, and only the classifier layers were trained.
+
+**Results:**  
+![alt text](./images/resnet18-train-val.png)
+
+> Full training logs are available in the [training notebook](./notebooks/02_Train_Models.ipynb).
+
+#### Model 2: ResNet-50
+A deeper ResNet-50 model was fine-tuned similarly to ResNet-18.
+
+**Hyperparameters Tuned:**Learning rate, Dropout rate, Epochs  
+
+**Results:**  
+![alt text](./images/resnet50-train-val.png)
+
+> Full training logs are available in the [training notebook](./notebooks/02_Train_Models.ipynb).
+
+#### Model 3: EfficientNet-B0
+EfficientNet-B0 was fine-tuned with only the classifier layers.
+
+**Hyperparameters Tuned:**Learning rate, Dropout rate, Epochs  
+
+**Results:**  
+![alt text](./images/efficientnetb0-train-val.png)
+
+> Full training logs are available in the [training notebook](./notebooks/02_Train_Models.ipynb).
+
+**EfficientNet-B0 achieved the best validation performance and was selected as the final model.**
+
+### 5.4. Model Deployment and User Interaction
+
+- **Local Inference Validation (Docker):**  
+  Enables rapid testing of the inference pipeline using the Lambda Runtime
+  Interface Emulator prior to cloud deployment.
+
+- **Serverless Cloud Inference (AWS Lambda + AWS API Gateway + AWS ECR):**  
+  The model is packaged into a Lambda-compatible container and deployed for
+  scalable, on-demand inference via an API Gateway endpoint.
+
+- **User-Facing Application (Streamlit Cloud):**  
+  A web-based interface allows users to upload images and receive real-time
+  predictions through the deployed cloud API.
+
+This deployment pipeline ensures consistency between local testing, cloud
+execution, and end-user interaction.
+
+----
 ## 6. Instructions to Reproduce
 
 This section provides a **complete, end-to-end guide** to reproducing the deployed machine learning inference system, from local container-based testing to cloud deployment on **AWS Lambda** and public access via **API Gateway**.  
 The final inference API is additionally integrated into a **Streamlit Cloud application** for user-facing testing and validation.
 
-### 6.1 System Requirements
+**Section Overview**:
+
+[**6.1. System Requirements**](#61-system-requirements)
+
+[**6.2. AWS Identity and Access Management (IAM)**](#62-aws-identity-and-access-management-iam)
+
+[**6.3. Repository Setup**](#63-repository-setup)
+
+[**6.4. Local Inference Testing**](#64-local-inference-testing)
+
+[**6.5. Cloud Deployment (AWS)**](#65-cloud-deployment-aws)
+
+[**6.6. Streamlit Cloud Deployment**](#66-streamlit-cloud-deployment-user-facing-validation)
+
+
+### 6.1. System Requirements
 
 The following tools and services are required:
 
@@ -109,25 +211,57 @@ The following tools and services are required:
 - A **Streamlit Cloud account** (optinally, if you wish to deploy this project yourself.)
 
 
-### 6.2 AWS Identity and Access Management (IAM)
+### 6.2. AWS Identity and Access Management (IAM)
 
-For instructions on AWS configurations and IAM, check out [aws-configurations.md](./reproducability-instructions/aws-configurations.md)
+For instructions on AWS configurations and IAM, check out:
 
----
+[📄 aws-configurations.md](./reproducability-instructions/aws-configurations.md)
 
-### 6.3 **Local Inference Testing**
 
-For instructions on local containerized inference testing, check out [local-testing.md](./reproducability-instructions/local-testing.md)
+### 6.3. Repository Setup
 
----
+First, clone the repository and set up a local Python virtual environment.
 
-### **6.4 Cloud Deployment (AWS)**
+**Step 1: Clone the repository**
+```bash
+git clone https://github.com/<your-username>/<your-repository>.git
+cd <your-repository>
+```
 
-For instructions on deploying the ML project on AWS, check out [cloud-deployment.md](./reproducability-instructions/cloud-deployment.md)
+**Step 2: Create and activate a virtual environment**
 
----
+```bash
+python -m venv venv
+```
+```bash
+source venv/bin/activate #macos/linux
+# or 
+venv\Scripts\activate #windows
+``` 
 
-### **6.5 Streamlit Cloud Deployment (User-Facing Validation)**
+**Step 3: Install dependencies**
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+
+### 6.3. Local Inference Testing
+
+For instructions on local containerized inference testing, check out:
+
+ [📄 local-testing.md](./reproducability-instructions/local-testing.md)
+
+
+### 6.4. Cloud Deployment (AWS)
+
+For instructions on deploying the ML project on AWS, check out:
+
+[📄 cloud-deployment.md](./reproducability-instructions/cloud-deployment.md)
+
+
+### 6.5. Streamlit Cloud Deployment (User-Facing Validation)
 
 To enable non-technical users to interact with the model, the AWS API endpoint is integrated into a Streamlit Cloud application.
 
@@ -138,9 +272,10 @@ Overview
 - Requests are forwarded to the AWS API Gateway /predict endpoint
 - Predictions are displayed in real time
 
-To check out my app, click [https://urban-waste-cnn.streamlit.app/](https://urban-waste-cnn.streamlit.app/)
+🔗 **Live Demo of my app:**  
+https://urban-waste-cnn.streamlit.app/
 
-![alt text](./images/streamlit-op.png)
+![Streamlit App Output](./images/streamlit-op.png)
 
 > **Note:** This Streamlit application and its backing AWS infrastructure
 > (Lambda function and API Gateway) are **temporarily active** for demonstration

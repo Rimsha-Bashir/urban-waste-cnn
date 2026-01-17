@@ -21,13 +21,7 @@ streamlit
 torch
 torchvision
 
-# ONNX export and runtime
-# onnx
-# onnxruntime
-
 # Deployment
-flask
-boto3
 docker
 
 # Jupyter / notebooks
