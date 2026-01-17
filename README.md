@@ -117,11 +117,11 @@ EDA includes:
 - Class distribution analysis (waste vs no-waste)
 
 - Waste presence across different site types
-<img src="./images/waste-presence-by-site.png" width="300px">
+<img src="./images/waste-presence-by-site.png" width="500px">
 
 - Distribution of severity and evidence labels
-<img src="./images/severity-distr.png" width="250px" style="margin-right: 10px;">
-<img src="./images/evidence-distr.png" width="250px">
+<img src="./images/severity-distr.png" width="400px" style="margin-right: 10px;">
+<img src="./images/evidence-distr.png" width="400px">
   
 - Visual inspection of sample images
 
