@@ -135,6 +135,8 @@ are fine-tuned.
 A pretrained ResNet-18 backbone was fine-tuned for binary classification (waste vs no-waste).  
 The backbone layers were frozen, and only the classifier layers were trained.
 
+**Hyperparameters Tuned:** Learning rate, Dropout rate, Epochs 
+
 **Results:**  
 ![alt text](./images/resnet18-train-val.png)
 
@@ -143,7 +145,7 @@ The backbone layers were frozen, and only the classifier layers were trained.
 #### Model 2: ResNet-50
 A deeper ResNet-50 model was fine-tuned similarly to ResNet-18.
 
-**Hyperparameters Tuned:**Learning rate, Dropout rate, Epochs  
+**Hyperparameters Tuned:** Learning rate, Dropout rate, Epochs  
 
 **Results:**  
 ![alt text](./images/resnet50-train-val.png)
@@ -153,7 +155,7 @@ A deeper ResNet-50 model was fine-tuned similarly to ResNet-18.
 #### Model 3: EfficientNet-B0
 EfficientNet-B0 was fine-tuned with only the classifier layers.
 
-**Hyperparameters Tuned:**Learning rate, Dropout rate, Epochs  
+**Hyperparameters Tuned:** Learning rate, Dropout rate, Epochs  
 
 **Results:**  
 ![alt text](./images/efficientnetb0-train-val.png)
